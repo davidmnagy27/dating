@@ -41,6 +41,14 @@ $f3->route('POST /interests', function () {
     $view = new Template();
     echo $view->render('views/interests.html');
 });
+
+$f3->route('POST /summary', function () {
+    $_SESSION['indoor'] = $_POST['indoor'];
+    $_SESSION['outdoor'] = $_POST['outdoor'];
+    $view = new Template();
+    echo $view->render('views/summary.html');
+});
+
 //Run fat-free
 $f3->run();
 ?>
