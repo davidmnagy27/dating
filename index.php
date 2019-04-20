@@ -21,6 +21,16 @@ $f3->route('POST /personal-info', function () {
     echo $view->render('views/person-info.html');
 });
 
+$f3->route('POST /profile', function () {
+    $_SESSION['first'] = $_POST['first'];
+    $_SESSION['last'] = $_POST['last'];
+    $_SESSION['age'] = $_POST['age'];
+    $_SESSION['gender'] = $_POST['gender'];
+    $_SESSION['phone'] = $_POST['phone'];
+    $view = new Template();
+    echo $view->render('views/profile.html');
+});
+
 //Run fat-free
 $f3->run();
 ?>
