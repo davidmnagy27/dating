@@ -31,6 +31,16 @@ $f3->route('POST /profile', function () {
     echo $view->render('views/profile.html');
 });
 
+
+
+$f3->route('POST /interests', function () {
+    $_SESSION['email'] = $_POST['email'];
+    $_SESSION['state'] = $_POST['state'];
+    $_SESSION['bio'] = $_POST['bio'];
+    $_SESSION['seeking'] = $_POST['seeking'];
+    $view = new Template();
+    echo $view->render('views/interests.html');
+});
 //Run fat-free
 $f3->run();
 ?>
