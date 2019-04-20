@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Must do in relation to the index.php page -->
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <title>Summary</title>
+</head>
+<body>
+<ul class="nav">
+    <li class="nav-item">
+        <a id="nav-text" class="nav-link"  href="../dating">My Dating Website</a>
+    </li>
+</ul>
+<hr>
+
+<div class="container border rounded">
+    <div class="row">
+        <div class="col-sm-6">
+            <div id="profileSum" class="border rounded">
+                <p>Name: {{$_SESSION['first']}} {{$_SESSION['last']}}</p>
+                <hr>
+                <p>Gender: {{$_SESSION['gender']}}</p>
+                <hr>
+                <p>Age: {{$_SESSION['age']}}</p>
+                <hr>
+                <p>Phone: {{$_SESSION['phone']}}</p>
+                <hr>
+                <p>Email: {{$_SESSION['email']}}</p>
+                <hr>
+                <p>State: {{$_SESSION['state']}}</p>
+                <hr>
+                <p>Seeking: {{$_SESSION['seeking']}}</p>
+                <hr>
+                <p>Interests: {{implode($_SESSION['indoor'])}}{{implode($_SESSION['outdoor'])}}</p>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="text-center">
+                <img id="profilePic" src="images/profilepic.PNG" alt="profile picture">
+            </div>
+            <h4>Biography</h4>
+            <p class="text-center">{{$_SESSION['bio']}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <button class="btn btn-primary bottomMargin">Contact Me!</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
