@@ -1,8 +1,11 @@
+<!-- David Nagy
+4/20/19
+index.php
+Description: php routing page
+-->
+
 <?php
 session_start();
-
-
-
 
 //TUrn on error reporting
 ini_set('display_errors', true);
@@ -15,12 +18,15 @@ $f3 = Base::instance();
 $f3->route('GET /', function () {
     $view = new Template();
     echo $view->render('views/home.html');
+
+    //define personal info route
 });
 $f3->route('POST /personal-info', function () {
     $view = new Template();
     echo $view->render('views/person-info.html');
 });
 
+//define a profile route
 $f3->route('POST /profile', function () {
     $_SESSION['first'] = $_POST['first'];
     $_SESSION['last'] = $_POST['last'];
@@ -31,8 +37,7 @@ $f3->route('POST /profile', function () {
     echo $view->render('views/profile.html');
 });
 
-
-
+//define a interest route
 $f3->route('POST /interests', function () {
     $_SESSION['email'] = $_POST['email'];
     $_SESSION['state'] = $_POST['state'];
@@ -42,6 +47,7 @@ $f3->route('POST /interests', function () {
     echo $view->render('views/interests.html');
 });
 
+//define a summary route
 $f3->route('POST /summary', function () {
     $_SESSION['indoor'] = $_POST['indoor'];
     $_SESSION['outdoor'] = $_POST['outdoor'];
