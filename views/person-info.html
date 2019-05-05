@@ -2,11 +2,7 @@
 4/20/19
 person-info.html
 Description: implementing the personal information page
-
 -->
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +26,7 @@ Description: implementing the personal information page
 </ul>
 <hr>
 
-<form action="profile" method="post">
+<form action="#" method="post">
     <div class="container border rounded">
         <div class="row">
             <div class="col-sm-12">
@@ -40,19 +36,29 @@ Description: implementing the personal information page
             <div class="col-sm-9">
                 <div class="form-group">
                     <label><strong>First Name</strong>
-                        <input type="text" class="form-control" name="first">
+                        <input class="form-control" id="first" type="text" name="first" value="{{ @first }}">
+                        <check if="{{ @errors['first'] }}">
+                            <span class="err">{{ @errors['first'] }}</span>
+                        </check>
                     </label>
                 </div>
 
                 <div class="form-group">
                     <label><strong>Last Name</strong>
-                        <input type="text" class="form-control" name="last">
+                        <input class="form-control" id="last" type="text" name="last" value="{{ @last }}">
+                        <check if="{{ @errors['last'] }}">
+                            <span class="err">{{ @errors['last'] }}</span>
+                        </check>
                     </label>
                 </div>
 
                 <div class="form-group">
                     <label><strong>Age</strong>
-                        <input type="text" class="form-control" name="age">
+                        <input class="form-control" id="age" type="text" name="age" value="{{ @age }}">
+                        <check if="{{ @errors['age'] }}">
+                            <span class="err">{{ @errors['age'] }}</span>
+                        </check>
+                        </check>
                     </label>
                 </div>
             </div>
@@ -68,12 +74,13 @@ Description: implementing the personal information page
 
         <div id="radioBtns" class="row">
             <div class="col-sm-12">
-                <p class="noBottomMargin"><strong>Gender</strong></p>
+                <p class="noBottomMargin"><strong>Gender(Optional)</strong></p>
             </div>
             <div class="col-sm-1">
                 <div class="form-check">
                     <label class="form-check-label">
                         <input class="form-check-input" type="radio" name="gender" value="Male">
+                        <check if="{{@gender === 'Male'}}"></check>
                         Male
                     </label>
                 </div>
@@ -83,6 +90,7 @@ Description: implementing the personal information page
                 <div class="form-check">
                     <label class="form-check-label">
                         <input class="form-check-input" type="radio" name="gender" value="Female">
+                        <check if="{{@gender === 'Female'}}"></check>
                         Female
                     </label>
                 </div>
@@ -93,7 +101,7 @@ Description: implementing the personal information page
             <div class="col-sm-9">
                 <div class="form-group">
                     <label><strong>Phone Number</strong>
-                        <input type="text" class="form-control" name="phone">
+                        <input type="text" class="form-control" name="phone" value="{{@phone}}">
                     </label>
                 </div>
             </div>

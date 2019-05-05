@@ -29,7 +29,7 @@ Description: implementing the interest page
 </ul>
 <hr>
 
-<form action="summary" method="post">
+<form action="#" method="post">
     <div class="container border rounded">
         <div class="row">
             <div class="col-sm-12">
@@ -46,14 +46,16 @@ Description: implementing the interest page
             <div class="col-sm-3 checkInterests">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="indoor[]" value="tv " checked>
+                        <input class="form-check-input" type="checkbox" name="indoor[]" value="tv">
+                        <check if="{{@indoor === 'tv'}}">checked</check>
                         tv
                     </label>
                 </div>
 
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="indoor[]" value="puzzles ">
+                        <input class="form-check-input" type="checkbox" name="indoor[]" value="puzzles">
+                        <check if="{{@indoor === 'puzzles'}}">checked</check>
                         puzzles
                     </label>
                 </div>
@@ -62,14 +64,16 @@ Description: implementing the interest page
             <div class="col-sm-3">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="indoor[]" value="movies ">
+                        <input class="form-check-input" type="checkbox" name="indoor[]" value="movies">
+                        <check if="{{@indoor === 'movies'}}">checked</check>
                         movies
                     </label>
                 </div>
 
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="indoor[]" value="reading ">
+                        <input class="form-check-input" type="checkbox" name="indoor[]" value="reading">
+                        <check if="{{@indoor === 'reading'}}">checked</check>
                         reading
                     </label>
                 </div>
@@ -78,14 +82,16 @@ Description: implementing the interest page
             <div class="col-sm-3">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="indoor[]" value="cooking ">
+                        <input class="form-check-input" type="checkbox" name="indoor[]" value="cooking">
+                        <check if="{{@indoor === 'cooking'}}">checked</check>
                         cooking
                     </label>
                 </div>
 
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="indoor[]" value="playing cards ">
+                        <input class="form-check-input" type="checkbox" name="indoor[]" value="playing cards">
+                        <check if="{{@indoor === 'playing cards'}}">checked</check>
                         playing cards
                     </label>
                 </div>
@@ -94,14 +100,16 @@ Description: implementing the interest page
             <div class="col-sm-3">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="indoor[]" value="board games ">
+                        <input class="form-check-input" type="checkbox" name="indoor[]" value="board games">
+                        <check if="{{@indoor === 'board games'}}">checked</check>
                         board games
                     </label>
                 </div>
 
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="indoor[]" value="video games ">
+                        <input class="form-check-input" type="checkbox" name="indoor[]" value="video games">
+                        <check if="{{@indoor === 'video games'}}">checked</check>
                         video games
                     </label>
                 </div>
@@ -110,20 +118,22 @@ Description: implementing the interest page
 
         <div class="row bottomMargin">
             <div class="col-sm-12">
-                <p class="noBottomMargin"><strong>outdoor Interests</strong></p>
+                <p class="noBottomMargin"><strong>In-door Interests</strong></p>
             </div>
 
             <div class="col-sm-3 checkInterests">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="hiking " checked>
+                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="hiking">
+                        <check if="{{@outdoor === 'hiking'}}">checked</check>
                         hiking
                     </label>
                 </div>
 
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="walking ">
+                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="walking">
+                        <check if="{{@outdoor === 'walking'}}">checked</check>
                         walking
                     </label>
                 </div>
@@ -132,14 +142,16 @@ Description: implementing the interest page
             <div class="col-sm-3">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="biking ">
+                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="biking">
+                        <check if="{{@outdoor === 'biking'}}">checked</check>
                         biking
                     </label>
                 </div>
 
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="climbing ">
+                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="climbing">
+                        <check if="{{@outdoor === 'climbing'}}">checked</check>
                         climbing
                     </label>
                 </div>
@@ -148,7 +160,8 @@ Description: implementing the interest page
             <div class="col-sm-3">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="swimming ">
+                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="swimming">
+                        <check if="{{@outdoor === 'swimming'}}">checked</check>
                         swimming
                     </label>
                 </div>
@@ -157,12 +170,16 @@ Description: implementing the interest page
             <div class="col-sm-3">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="collecting ">
+                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="collecting">
+                        <check if="{{@outdoor === 'collecting'}}">checked</check>
                         collecting
                     </label>
                 </div>
             </div>
         </div>
+
+
+
 
         <div class="row">
             <div class="col-sm-12">
