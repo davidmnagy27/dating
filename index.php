@@ -10,13 +10,26 @@ require_once('model/validate.php');
 //Create an instance of the Base class
 $f3 = Base::instance();
 
-$f3->set("indoorInterests", ['tv', 'puzzles', 'movies', 'reading', 'cooking', 'playing cards', 'board games', 'video games']);
-$f3->set("outdoorInterests", ['hiking', 'walking', 'biking', 'climbing', 'swimming', 'collecting']);
+// validate against array
+$f3->set("indoorInterests", array('tv', 'puzzles', 'movies', 'reading', 'cooking', 'playing cards', 'board games', 'video games'));
+$f3->set("outdoorInterests", array('hiking', 'walking', 'biking', 'climbing', 'swimming', 'collecting'));
+
+//adding array of states
+$f3->set('states', array('Alabama','Alaska','Arizona','Arkansas','California',
+    'Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia',
+    'Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana',
+    'Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri',
+    'Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York',
+    'North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island',
+    'South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington',
+    'West Virginia','Wisconsin','Wyoming'));
 //define a default route
 $f3->route('GET /', function () {
     $view = new Template();
     echo $view->render('views/home.html');
 });
+
+//Route to information form
 $f3->route('GET|POST /personal-info', function ($f3)
 {
     if(!empty($_POST)) {
@@ -54,7 +67,8 @@ $f3->route('GET|POST /personal-info', function ($f3)
     echo $view->render('views/person-info.html');
 });
 $f3->route('GET|POST /profile', function ($f3)
-{
+{//Route to information form
+
     if(!empty($_POST)) {
         //Get data from form
         $email = $_POST['email'];
@@ -90,7 +104,7 @@ $f3->route('GET|POST /profile', function ($f3)
     echo $view->render('views/profile.html');
 });
 $f3->route('GET|POST /interests', function ($f3)
-{
+{//Route to information form
     if(!empty($_POST)) {
         //Get data from form
         $indoor = $_POST['indoor'];
