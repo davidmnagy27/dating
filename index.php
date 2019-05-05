@@ -1,60 +1,130 @@
-<!-- David Nagy
-4/20/19
-index.php
-Description: php routing page
--->
-
 <?php
 session_start();
 
-//TUrn on error reporting
+
 ini_set('display_errors', true);
 error_reporting(E_ALL);
 //Require autoload file
 require_once('vendor/autoload.php');
+require_once('model/validate.php');
 //Create an instance of the Base class
 $f3 = Base::instance();
+
+$f3->set("indoorInterests", ['tv', 'puzzles', 'movies', 'reading', 'cooking', 'playing cards', 'board games', 'video games']);
+$f3->set("outdoorInterests", ['hiking', 'walking', 'biking', 'climbing', 'swimming', 'collecting']);
 //define a default route
 $f3->route('GET /', function () {
     $view = new Template();
     echo $view->render('views/home.html');
-
-    //define personal info route
 });
-$f3->route('POST /personal-info', function () {
+$f3->route('GET|POST /personal-info', function ($f3)
+{
+    if(!empty($_POST)) {
+        //Get data from form
+        $first = $_POST['first'];
+        $last = $_POST['last'];
+        $age = $_POST['age'];
+        $gender = $_POST['gender'];
+        $phone = $_POST['phone'];
+        //Add data to hive
+        $f3->set('first', $first);
+        $f3->set('last', $last);
+        $f3->set('age', $age);
+        $f3->set('gender', $gender);
+        $f3->set('phone', $phone);
+        //If data is valid
+        if (validForm()) {
+            //Write data to Session
+            $_SESSION['first'] = $first;
+            $_SESSION['last'] = $last;
+            $_SESSION['age'] = $age;
+            $_SESSION['phone'] = $phone;
+
+
+            if (empty($gender)) {
+                $_SESSION['gender'] = "No gender selected";
+            }
+            else {
+                $_SESSION['gender'] = $gender;
+            }
+            $f3->reroute('/profile');
+        }
+    }
     $view = new Template();
     echo $view->render('views/person-info.html');
 });
-
-//define a profile route
-$f3->route('POST /profile', function () {
-    $_SESSION['first'] = $_POST['first'];
-    $_SESSION['last'] = $_POST['last'];
-    $_SESSION['age'] = $_POST['age'];
-    $_SESSION['gender'] = $_POST['gender'];
-    $_SESSION['phone'] = $_POST['phone'];
+$f3->route('GET|POST /profile', function ($f3)
+{
+    if(!empty($_POST)) {
+        //Get data from form
+        $email = $_POST['email'];
+        $state = $_POST['state'];
+        $bio = $_POST['bio'];
+        $seeking = $_POST['seeking'];
+        //Add data to hive
+        $f3->set('email', $email);
+        $f3->set('state', $state);
+        $f3->set('bio', $bio);
+        $f3->set('seeking', $seeking);
+        //If data is valid
+        if (validSecondForm()) {
+            //Write data to Session
+            $_SESSION['email'] = $email;
+            $_SESSION['state'] = $state;
+            if (empty($bio)) {
+                $_SESSION['bio'] = "No biography";
+            }
+            else {
+                $_SESSION['bio'] = $bio;
+            }
+            if (empty($seeking)) {
+                $_SESSION['seeking'] = "Not seeking any";
+            }
+            else {
+                $_SESSION['seeking'] = $seeking;
+            }
+            $f3->reroute('/interests');
+        }
+    }
     $view = new Template();
     echo $view->render('views/profile.html');
 });
-
-//define a interest route
-$f3->route('POST /interests', function () {
-    $_SESSION['email'] = $_POST['email'];
-    $_SESSION['state'] = $_POST['state'];
-    $_SESSION['bio'] = $_POST['bio'];
-    $_SESSION['seeking'] = $_POST['seeking'];
+$f3->route('GET|POST /interests', function ($f3)
+{
+    if(!empty($_POST)) {
+        //Get data from form
+        $indoor = $_POST['indoor'];
+        $outdoor = $_POST['outdoor'];
+        //Add data to hive
+        $f3->set('indoor', $indoor);
+        $f3->set('outdoor', $outdoor);
+        //If data is valid
+        if (validInterest()) {
+            //Write data to Session
+            if (empty($indoor)) {
+                $_SESSION['indoor'] = ["no indoor interests"];
+            }
+            else {
+                $_SESSION['indoor'] = $indoor;
+            }
+            if (empty($outdoor)) {
+                $_SESSION['outdoor'] = ["no outdoor interests"];
+            }
+            else {
+                $_SESSION['outdoor'] = $outdoor;
+            }
+            $f3->reroute('/summary');
+        }
+    }
     $view = new Template();
     echo $view->render('views/interests.html');
 });
-
-//define a summary route
-$f3->route('POST /summary', function () {
-    $_SESSION['indoor'] = $_POST['indoor'];
-    $_SESSION['outdoor'] = $_POST['outdoor'];
+$f3->route('GET|POST /summary', function ()
+{
     $view = new Template();
     echo $view->render('views/summary.html');
-});
 
+});
 //Run fat-free
 $f3->run();
 ?>
