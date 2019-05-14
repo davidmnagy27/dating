@@ -102,10 +102,30 @@ Description: implementing the personal information page
                 <div class="form-group">
                     <label><strong>Phone Number</strong>
                         <input type="text" class="form-control" name="phone" value="{{@phone}}">
+                        <check if="{{ @errors['phone'] }}">
+                            <span class="err">{{ @errors['phone'] }}</span>
+                        </check>
                     </label>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="noBottomMargin"><strong>Premium Membership</strong></p>
+            </div>
+            <div class="col-sm-9">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="membership" value="premium"
+                        <check if="{{@membership === 'premium'}}">checked</check>>
+                        Sign me up for a Premium Account!</label>
+                </div>
+            </div>
+        </div>
+
+
+
 
         <div class="row">
             <div class="col-sm-12">
