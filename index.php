@@ -1,11 +1,15 @@
 <?php
+
+
+require_once('vendor/autoload.php');
+
 session_start();
 
 
 ini_set('display_errors', true);
 error_reporting(E_ALL);
 //Require autoload file
-require_once('vendor/autoload.php');
+
 require_once('model/validate.php');
 //Create an instance of the Base class
 $f3 = Base::instance();
@@ -39,12 +43,15 @@ $f3->route('GET|POST /personal-info', function ($f3)
         $age = $_POST['age'];
         $gender = $_POST['gender'];
         $phone = $_POST['phone'];
+        $membership = $_POST['membership'];
+
         //Add data to hive
         $f3->set('first', $first);
         $f3->set('last', $last);
         $f3->set('age', $age);
         $f3->set('gender', $gender);
         $f3->set('phone', $phone);
+        $f3->set('membership', $membership);
         //If data is valid
         if (validForm()) {
             //Write data to Session
@@ -56,16 +63,29 @@ $f3->route('GET|POST /personal-info', function ($f3)
 
             if (empty($gender)) {
                 $_SESSION['gender'] = "No gender selected";
-            }
-            else {
+            } else {
                 $_SESSION['gender'] = $gender;
             }
+
+
+            if($membership === "premium")
+            {
+                $member = new PremiumMember($first, $last, $age, $gender, $phone);
+            }
+            else
+            {
+                $member = new Member($first, $last, $age, $gender, $phone);
+            }
+            $_SESSION['member'] = $member;
+
             $f3->reroute('/profile');
         }
     }
+
     $view = new Template();
     echo $view->render('views/person-info.html');
 });
+
 $f3->route('GET|POST /profile', function ($f3)
 {//Route to information form
 
@@ -75,11 +95,13 @@ $f3->route('GET|POST /profile', function ($f3)
         $state = $_POST['state'];
         $bio = $_POST['bio'];
         $seeking = $_POST['seeking'];
+
         //Add data to hive
         $f3->set('email', $email);
         $f3->set('state', $state);
         $f3->set('bio', $bio);
         $f3->set('seeking', $seeking);
+
         //If data is valid
         if (validSecondForm()) {
             //Write data to Session
@@ -97,13 +119,29 @@ $f3->route('GET|POST /profile', function ($f3)
             else {
                 $_SESSION['seeking'] = $seeking;
             }
-            $f3->reroute('/interests');
+
+
+            $member = $_SESSION['member'];
+            $member->setEmail($email);
+            $member->setState($state);
+            $member->setBio($bio);
+            $member->setSeeking($seeking);
+            $_SESSION['member'] = $member;
+
+            if($member instanceof PremiumMember)
+            {
+                $f3->reroute('/interests');
+            }
+         
+            $f3->reroute('/summary');
         }
     }
     $view = new Template();
     echo $view->render('views/profile.html');
 });
+
 $f3->route('GET|POST /interests', function ($f3)
+
 {//Route to information form
     if(!empty($_POST)) {
         //Get data from form
@@ -112,6 +150,8 @@ $f3->route('GET|POST /interests', function ($f3)
         //Add data to hive
         $f3->set('indoor', $indoor);
         $f3->set('outdoor', $outdoor);
+
+
         //If data is valid
         if (validInterest()) {
             //Write data to Session
@@ -127,6 +167,14 @@ $f3->route('GET|POST /interests', function ($f3)
             else {
                 $_SESSION['outdoor'] = $outdoor;
             }
+
+
+
+            $_SESSION['member']->setInDoorInterests($indoor);
+            $_SESSION['member']->setOutDoorInterests($outdoor);
+
+
+
             $f3->reroute('/summary');
         }
     }
