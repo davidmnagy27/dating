@@ -1,13 +1,19 @@
 {
-  "name": "davidmnagy27/328/dating",
-  "author": [
+  "authors" :
+  [
     {
-      "name": "David Nagy",
-      "email": "dnagy@mail.greenriver.edu"
-
+      "name" : "David Nagy",
+      "email" : "dnagy@mail.greenriver.edu"
     }
+
   ],
-  "require": {
-    "bcosca/fatfree-core": "dev-master"
+  "require" :
+  {
+    "bcosca/fatfree-core" : "dev-master"
+
+  },
+  "autoload": {
+    "classmap": ["classes/"]
   }
 }
+
