@@ -31,21 +31,24 @@ Description: implementing the summary page
     <div class="row">
         <div class="col-sm-6">
             <div id="profileSum" class="border rounded">
-                <p>Name: {{$_SESSION['first']}} {{$_SESSION['last']}}</p>
+                <p>Name: {{$_SESSION['member']->getFname() }} {{$_SESSION['member']->getLname() }}</p>
                 <hr>
-                <p>Gender: {{$_SESSION['gender']}}</p>
+                <p>Gender: {{$_SESSION['member']->getGender() }}</p>
                 <hr>
-                <p>Age: {{$_SESSION['age']}}</p>
+                <p>Age: {{$_SESSION['member']->getAge() }}</p>
                 <hr>
-                <p>Phone: {{$_SESSION['phone']}}</p>
+                <p>Phone: {{$_SESSION['member']->getPhone() }}</p>
                 <hr>
-                <p>Email: {{$_SESSION['email']}}</p>
+                <p>Email: {{$_SESSION['member']->getEmail() }}</p>
                 <hr>
-                <p>State: {{$_SESSION['state']}}</p>
+                <p>State: {{$_SESSION['member']->getState() }}</p>
                 <hr>
-                <p>Seeking: {{$_SESSION['seeking']}}</p>
-                <hr>
-                <p>Interests: {{implode($_SESSION['indoor'])}}{{implode($_SESSION['outdoor'])}}</p>
+                <p>Seeking: {{$_SESSION['member']->getSeeking() }}</p>
+                <check if="{{$_SESSION['member'] instanceOf PremiumMember}}">
+                    <hr>
+                    <p>Interests: {{implode(', ', $_SESSION['member']->getInDoorInterests() )}},
+                        {{implode(', ', $_SESSION['member']->getOutDoorInterests()) }}</p>
+                </check>
             </div>
         </div>
 
