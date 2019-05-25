@@ -14,6 +14,10 @@ require_once('model/validate.php');
 //Create an instance of the Base class
 $f3 = Base::instance();
 
+$db = new Database();
+
+
+
 // validate against array
 $f3->set("indoorInterests", array('tv', 'puzzles', 'movies', 'reading', 'cooking', 'playing cards', 'board games', 'video games'));
 $f3->set("outdoorInterests", array('hiking', 'walking', 'biking', 'climbing', 'swimming', 'collecting'));
@@ -27,6 +31,7 @@ $f3->set('states', array('Alabama','Alaska','Arizona','Arkansas','California',
     'North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island',
     'South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington',
     'West Virginia','Wisconsin','Wyoming'));
+
 //define a default route
 $f3->route('GET /', function () {
     $view = new Template();
@@ -132,7 +137,7 @@ $f3->route('GET|POST /profile', function ($f3)
             {
                 $f3->reroute('/interests');
             }
-         
+
             $f3->reroute('/summary');
         }
     }
@@ -184,9 +189,33 @@ $f3->route('GET|POST /interests', function ($f3)
 $f3->route('GET|POST /summary', function ()
 {
     $view = new Template();
+
+    global $db;
+    $db->insertMember($_SESSION['member']);
+
     echo $view->render('views/summary.html');
 
 });
+
+$f3->route('GET /admin', function ($f3)
+{
+    //istantiate a db object
+    $database = new database();
+    $database->connect();
+
+    $member = $database->getMembers();
+
+    $f3->set('member', $member);
+    $f3->set('db', $database);
+
+    $view = new Template();
+    echo $view->render("views/admin.html");
+}
+);
+
+
+
+
 //Run fat-free
 $f3->run();
 ?>
