@@ -1,5 +1,5 @@
 <?php
-/*  Table creation code
+/*
 CREATE TABLE member
 (
     member_id int PRIMARY KEY AUTO_INCREMENT,
@@ -35,14 +35,14 @@ Class Database
 {
     private $dbh;
     /**
-     * database constructor. Start out disconnected
+     * database constructor.
      */
     public function __construct()
     {
         $this->connect();
     }
     /**
-     * Attempts to connect to database, saves error message if not connected
+     *  connect to database
      * @return void
      */
     public function connect()
@@ -57,17 +57,17 @@ Class Database
     }
     /**
      * Inserts a member into database
-     * @param $member A membership object
+     * @param $member membership object
      * @return void
      */
     public function insertMember($member)
     {
         if(isset($this->dbh)){
-            //prepare sql statement
+            // SQL statement
             $sql = "INSERT INTO member(fname, lname, age, gender, phone, email, state, seeking, bio, premium) 
                 VALUES (:fname, :lname, :age, :gender, :phone, :email, :state, :seeking, :bio, :premium)";
 
-            //save prepared statement
+
             $statement = $this->dbh->prepare($sql);
 
             //assign values
@@ -88,7 +88,7 @@ Class Database
             {
                 $premium=0;
             }
-            //bind params
+
             $statement->bindParam(':fname',$fname, PDO::PARAM_STR);
             $statement->bindParam(':lname', $lname, PDO::PARAM_STR);
             $statement->bindParam(':age', $age, PDO::PARAM_INT);
@@ -99,12 +99,11 @@ Class Database
             $statement->bindParam(':seeking', $seeking, PDO::PARAM_STR);
             $statement->bindParam(':bio', $bio, PDO::PARAM_STR);
             $statement->bindParam(':premium', $premium, PDO::PARAM_INT);
-            //execute insert into member
+
             $statement->execute();
 
-            //grab id of insert
             $id = $this->dbh->lastInsertId();
-            //check if Premium member to insert
+
             if($member instanceof PremiumMember) {
                 $indoor=$member->getInDoorInterests();
                 $outdoor=$member->getOutDoorInterests();
@@ -136,7 +135,7 @@ Class Database
     {
         $sql = "INSERT INTO memberinterest(interest_id, member_id) VALUES (:interest, :member)";
         $statement = $this->dbh->prepare($sql);
-        //for each indoor interest bind and execute statemnt
+        //for each indoor interest bind and execute statement
         foreach ($array as $value) {
             //bind interest id and member id
             $statement->bindParam(":interest", $this->getInterestID($value),
@@ -171,12 +170,12 @@ Class Database
         $statement->bindParam(":id", $member_id, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        $intrestArray= array();
+        $interestArray= array();
         if (isset($result)) {
             foreach ($result as $value) {
-                array_push( $intrestArray, $this->getInterestString($value['interest_id']));
+                array_push( $interestArray, $this->getInterestString($value['interest_id']));
             }
-            return implode(", ", $intrestArray);
+            return implode(", ", $interestArray);
         }else{
             return "";
         }
