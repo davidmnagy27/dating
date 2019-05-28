@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dating Website</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div>
+    <nav class="navbar navbar-light bg-light" id="nav">
+        <li class="nav-item">
+            <a class="nav-link nav-text" href="admin">Admin</a>
+        </li>
+        <h4>My Dating Website</h4>
+    </nav>
+
+
+<table id="table" class="display">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>State</th>
+        <th>Gender</th>
+        <th>Seeking</th>
+        <th>Premium</th>
+        <th>Interests</th>
+    </tr>
+    <check if="{{isset(@members)}}">
+        <repeat group="{{ @members }}"
+                key="{{ @key }}"
+                value="{{ @value }}">
+            <tr>
+                <td>{{@value['member_id']}}</td>
+                <td>{{@value['fname'] . " " . @value['lname']}}</td>
+                <td>{{@value['age']}}</td>
+                <td>{{@value['phone']}}</td>
+                <td>{{@value['email']}}</td>
+                <td>{{@value['state']}}</td>
+                <td>{{@value['gender']}}</td>
+                <td>{{@value['seeking']}}</td>
+                <td>
+                    <check if="{{@value['premium']==1}}">
+                        <true><div class="custom-control custom-checkbox">
+                            <input checked disabled type="checkbox" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1"></label>
+                        <false><div class="custom-control custom-checkbox">
+
+
+
+                <td>{{@db->getInterests(@value['member_id'])}}</td>
+            </tr>
+
+        </repeat>
+    </check>
+</table>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+
+</div>
+</body>
+</html>

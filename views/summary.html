@@ -24,6 +24,9 @@ Description: implementing the summary page
     <li class="nav-item">
         <a id="nav-text" class="nav-link"  href="../dating">My Dating Website</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link nav-text" href="admin">Admin</a>
+    </li>
 </ul>
 <hr>
 
@@ -46,8 +49,17 @@ Description: implementing the summary page
                 <p>Seeking: {{$_SESSION['member']->getSeeking() }}</p>
                 <check if="{{$_SESSION['member'] instanceOf PremiumMember}}">
                     <hr>
-                    <p>Interests: {{implode(', ', $_SESSION['member']->getInDoorInterests() )}},
-                        {{implode(', ', $_SESSION['member']->getOutDoorInterests()) }}</p>
+
+                    <check if="{{!empty($_SESSION['member']->getOutDoorInterests()) &&
+                    !empty($_SESSION['member']->getInDoorInterests())}}">
+                        <true>
+                            <p>Interests: {{implode(', ', $_SESSION['member']->getInDoorInterests() )}},
+                                {{implode(', ', $_SESSION['member']->getOutDoorInterests()) }}</p>
+                        </true>
+                        <false>
+                            <p>Interests: No interests selected</p>
+                        </false>
+                    </check>
                 </check>
             </div>
         </div>
